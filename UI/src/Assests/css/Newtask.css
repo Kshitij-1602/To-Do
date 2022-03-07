@@ -1,0 +1,50 @@
+.newtask-form {
+  margin: 20px;
+}
+.forms {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 100px;
+}
+.state {
+  padding: 20px 200px;
+}
+
+.set-but {
+  display: flex;
+  justify-content: space-around;
+}
+#but {
+  padding: 10px 40px;
+}
+@media (max-width: 1000px) {
+  .forms {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    height: 20vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .forms {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    height: 10vw;
+    margin: 10px;
+  }
+}
+
+@media (max-width: 575px) {
+  .forms {
+    margin: 5px;
+  }
+  .state {
+    padding: 20px;
+  }
+  #but {
+    display: flex;
+    justify-content: center;
+  }
+}

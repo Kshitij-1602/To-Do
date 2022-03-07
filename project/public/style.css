@@ -1,0 +1,31 @@
+.content {
+  margin-top: 5%;
+  margin-left: 35%;
+}
+.login {
+  margin-left: 40%;
+}
+.card img {
+  width: 60%;
+  margin-left: 20%;
+  margin-top: 10%;
+  border-radius: 20px;
+  /* background-color: ; */
+}
+.card {
+  background: rgb(159, 147, 233);
+  background: linear-gradient(
+    90deg,
+    rgba(159, 147, 233, 1) 13%,
+    rgba(202, 228, 233, 1) 100%
+  );
+}
+.card-title {
+  font-weight: 900;
+  font-size: 24px;
+  text-align: center;
+}
+.card button {
+  padding: 5px 20px;
+  border-radius: 20px;
+}

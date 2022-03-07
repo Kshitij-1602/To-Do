@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  task_name: MyString
+  date_time: 2022-02-02 15:53:00
+  description: MyString
+  state: MyString
+  comments: MyString
+  user: one
+
+two:
+  task_name: MyString
+  date_time: 2022-02-02 15:53:00
+  description: MyString
+  state: MyString
+  comments: MyString
+  user: two

@@ -1,0 +1,78 @@
+.center-card {
+  position: absolute;
+  top: 22%;
+  left: 38%;
+  border: 2px solid rgb(231, 63, 63);
+  padding: 20px;
+  min-height: 20vw;
+  width: 25vw;
+  border-radius: 6px;
+  background-color: #e0dfdf;
+}
+
+.imglogo {
+  width: 30%;
+  border-radius: 10px;
+  margin: 20px;
+}
+.bsignin {
+  padding: 10px 30px;
+  margin: 20px;
+  background-color: #0668c9;
+  border-radius: 10px;
+  color: white;
+  font-size: 24px;
+}
+.gogle {
+  margin-right: 15px;
+}
+@media (max-width: 1000px) {
+  .center-card {
+    width: 50%;
+    margin: 5px;
+    left: 25%;
+  }
+  .bsignin {
+    width: 50%;
+    margin: 5px;
+    padding: 15px;
+    font-size: 16px;
+  }
+  .gogle {
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .center-card {
+    width: 50%;
+    margin: 5px;
+    left: 25%;
+  }
+  .bsignin {
+    width: 50%;
+    margin: 5px;
+    padding: 15px;
+    font-size: 16px;
+  }
+  .gogle {
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 575px) {
+  .center-card {
+    width: 50%;
+    margin: 5px;
+    left: 25%;
+  }
+  .bsignin {
+    width: 50%;
+    margin: 5px;
+    padding: 15px;
+    font-size: 16px;
+  }
+  .gogle {
+    margin-right: 5px;
+  }
+}

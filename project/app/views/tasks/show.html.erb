@@ -1,0 +1,11 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @task %>
+
+<div>
+  <%= link_to "Edit this task", edit_user_task_path(@user.id) %> 
+  <%= link_to '<button type="button"> Back to tasks </button>'.html_safe, user_tasks_path(@user.id) %>
+
+  <%= button_to "Destroy this task", user_task_path(@user.id), method: :delete %>
+  
+</div>

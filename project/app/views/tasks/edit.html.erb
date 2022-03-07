@@ -1,0 +1,10 @@
+<h1>Editing task</h1>
+
+<%= render "form", task: @task %>
+
+<br>
+
+<div>
+  <%# <%= link_to "Show this task", user_task_path(user.id) %> | %>
+ <%= link_to '<button type="button"> Back to tasks </button>'.html_safe, user_tasks_path(@user.id) %>
+ </div>
