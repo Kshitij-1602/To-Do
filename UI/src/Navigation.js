@@ -1,8 +1,19 @@
+//The
 import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function Navigation({ props }) {
+/**
+ * navbar present at the top of all pages
+ * functional components with links to different routes throughout the application
+ * @returns - links
+ * responsible for rendering, redirecting and linking to different pages of the DOM
+ */
+
+const Navigation = (props) => {
+  console.log(props.data?.name);
+  const user_name = props.data?.name.split(" ")[0];
+  //the navbar is collapsable and visible in all screen sizes
   return (
     <>
       <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
@@ -17,17 +28,17 @@ function Navigation({ props }) {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              {/* <Navbar.Brand href="/tasks">Tasks </Navbar.Brand>
-              <Nav.Link href="/new-tasks">New Task</Nav.Link> */}
               <Link to="/tasks" className="nav-link">
                 Tasks
               </Link>
-              <Link to="/new-tasks" className="nav-link">
+              <Link to="/new-task" className="nav-link">
                 New Task
               </Link>
             </Nav>
             <Nav>
-              <Navbar.Brand className="mt-2">Welcome , {props}</Navbar.Brand>
+              <Navbar.Brand className="mt-2" style={{ color: "#00BFFF" }}>
+                Welcome , {user_name}
+              </Navbar.Brand>
 
               <Nav.Link
                 href="/logout"
@@ -43,6 +54,6 @@ function Navigation({ props }) {
       </Navbar>
     </>
   );
-}
+};
 
 export default Navigation;

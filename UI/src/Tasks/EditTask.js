@@ -3,9 +3,21 @@ import "../Assests/css/Newtask.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { Form, Row, Col } from "react-bootstrap";
 import { BASE_URL } from "../env";
+import { taskStates } from "../App";
 
+/**
+ *
+ * The page is to render the edit task page which uses the id for the task to render the details
+ * IT shows the present data and allows the user to edit the input fields
+ * dependencies to be imported
+ * useparams takes the id for the particular task
+ * navigates to the specified link
+ * use state variables to stores data
+ * @param - id -string
+ */
 const EditTask = () => {
   let { id } = useParams();
+
   let navigate = useNavigate();
 
   const [task, setTask] = useState({});
@@ -16,7 +28,17 @@ const EditTask = () => {
     comments: "",
     date_time: new Date(),
   });
-  // This will get the task details
+  /**
+   *
+   * This function is invoked on page load.
+   *  Function to get all the task details from the backend.
+   * This will hit the backend route with the given id and get all the details present as json.
+   * The data is then parsed and set up in state variable for display and editing options.
+    
+   * sets the json data as received by get request
+
+   */
+
   useEffect(() => {
     fetch(BASE_URL + "/get-onetask/" + id, {
       method: "GET",
@@ -39,24 +61,35 @@ const EditTask = () => {
       });
   }, []);
 
-  //this will set the new values
+  /**
+   * Function to set the new values
+   * function to save the update form data
+   * Function to put the updated data for the id
+   * @params - id - string
+   * function to clear the form data
+   * function the submit the newly added data
+   * @params - form details
+   */
+
   const set = (name) => {
     return ({ target: { value } }) => {
       setValues((oldValues) => ({ ...oldValues, [name]: value }));
     };
   };
-  //redirect to task page after edit
+
   const saveFormData = async () => {
-    const response = await fetch(BASE_URL + "/put-tasks/" + id, {
+    const response = await fetch(BASE_URL + "/put-task/" + id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
     });
+
     if (response.status !== 200) {
       throw new Error(`Request failed: ${response.status}`);
     } else {
     }
   };
+
   const clearFormData = async () => {
     setValues({
       task_name: "",
@@ -71,24 +104,34 @@ const EditTask = () => {
     event.preventDefault(); // Prevent default submission
     try {
       await saveFormData();
+      //alert notification for success and failure
       alert("Your Task was successfully Edited!");
       navigate("/tasks");
     } catch (e) {
       alert(`Task failed! ${e.message}`);
     }
   };
+
   const onReset = async (e) => {
     e.preventDefault();
     try {
       await clearFormData();
     } catch (e) {
+      //error message if failed
       alert(`Failed ${e.message}`);
     }
   };
+  /**
+   * return part that will render the editable form
+   * form control events
+   * @return - labels and input boxes.
+   * This form has all the task labels and form input controls box for user to edit the data
+   *
+   */
 
   return (
     <div>
-      <h2>Edit the Tasks</h2>
+      <h2>Edit Task</h2>
       <div>
         <Form className="forms" onSubmit={onSubmit} onReset={onReset}>
           <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
@@ -99,8 +142,6 @@ const EditTask = () => {
               <Form.Control
                 type="text"
                 required
-                // placeholder={task.task_name}
-                // plaintext
                 defaultValue={values.task_name}
                 value={values.task_name}
                 onChange={set("task_name")}
@@ -158,11 +199,11 @@ const EditTask = () => {
               />
             </Col>
           </Form.Group>
-          <Row className="state">
-            <Col md>
-              <Form.Label column sm="4">
-                Comments
-              </Form.Label>
+          <Form.Group as={Row} className="mb-3">
+            <Form.Label column sm="2">
+              Comments
+            </Form.Label>
+            <Col sm="10">
               <Form.Control
                 type="text"
                 placeholder="Optional"
@@ -170,30 +211,34 @@ const EditTask = () => {
                 onChange={set("comments")}
               />
             </Col>
-            <Col md>
-              <Form.Label column sm="4">
-                State*
-              </Form.Label>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3">
+            <Form.Label column sm="2">
+              State*
+            </Form.Label>
+            <Col sm="10">
+              {/* State selection options  */}
               <Form.Select
                 aria-label="Floating label select example"
                 onChange={set("state")}
                 value={values.state}
+                placeholder="set state"
                 required
               >
                 <option></option>
-                <option values="open">Open</option>
-                <option values="in progress">In Progress</option>
-                <option values="completed">Completed</option>
+                <option defaultValue="open">{taskStates.OPEN}</option>
+                <option values="in progress">{taskStates.IN_PROGRESS}</option>
+                <option values="completed">{taskStates.COMPLETED}</option>
               </Form.Select>
-              {/* </FloatingLabel> */}
             </Col>
-          </Row>
+          </Form.Group>
+
           <div className="set-but">
             <button
               type="submit"
               className="btn btn-primary"
               id="but"
-              disabled={!values.task_name && !values.state}
+              disabled={!values.task_name || !values.state}
             >
               Update
             </button>

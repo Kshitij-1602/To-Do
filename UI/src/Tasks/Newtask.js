@@ -1,9 +1,21 @@
+//This page is to render the create new task page
+
+//importing all the required functionalities
 import React, { useState } from "react";
 import "../Assests/css/Newtask.css";
 import { useNavigate } from "react-router-dom";
 import { Form, Row, Col } from "react-bootstrap";
 import { BASE_URL } from "../env";
 import { taskStates } from "../App";
+
+/**
+ *
+ * The page is to render the the create new task page
+ * dependencies to be imported
+ * navigates to the specified link
+ * use state variables to stores data
+ * @param - values - object
+ */
 const Newtask = () => {
   let navigate = useNavigate();
 
@@ -14,14 +26,24 @@ const Newtask = () => {
     comments: "",
     date_time: new Date(),
   });
+
+  //Function to set the new values
   const set = (name) => {
     return ({ target: { value } }) => {
       setValues((oldValues) => ({ ...oldValues, [name]: value }));
     };
   };
+  /**
+   *
+   * This function is invoked on page load.
+   *  This function will get the input data,save and post the data to the backend route defined and provide it with other details required.
+   * This will hit the backend route with the given id and get all the details present as json.
+   *   
+
+   */
 
   const saveFormData = async () => {
-    const response = await fetch(BASE_URL + "/post-tasks", {
+    const response = await fetch(BASE_URL + "/post-task", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(values),
@@ -31,6 +53,15 @@ const Newtask = () => {
     } else {
     }
   };
+  /**
+   * Function to set the new values
+   * function to save the new form data
+   * Function to post the new data
+   * @params - values -object
+   * function to clear the form data
+   * function the submit data
+   * @params - form details
+   */
   const clearFormData = async () => {
     setValues({
       task_name: "",
@@ -40,6 +71,7 @@ const Newtask = () => {
       date_time: new Date(),
     });
   };
+
   const onSubmit = async (event) => {
     event.preventDefault(); // Prevent default submission
     try {
@@ -50,6 +82,7 @@ const Newtask = () => {
       alert(`Task failed! ${e.message}`);
     }
   };
+
   const onReset = async (e) => {
     e.preventDefault();
     try {
@@ -59,9 +92,17 @@ const Newtask = () => {
     }
   };
 
+  /**
+   * return part that will render the create new form form
+   * form control events
+   * @return - labels and input boxes.
+   * This form has all the task labels and form input controls box for user to add details
+   *
+   */
+
   return (
     <div>
-      <h2>Create New Task page </h2>
+      <h2>Create New Task </h2>
       <div>
         <Form className="forms" onSubmit={onSubmit} onReset={onReset}>
           <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
@@ -85,6 +126,7 @@ const Newtask = () => {
             <Col sm="2">
               <input
                 type="datetime-local"
+                data-testid="datetime"
                 value={values.date_time}
                 onChange={set("date_time")}
                 min={new Date().toISOString().slice(0, -8)}
@@ -105,11 +147,11 @@ const Newtask = () => {
               />
             </Col>
           </Form.Group>
-          <Row className="state">
-            <Col md>
-              <Form.Label column sm="4">
-                Comments
-              </Form.Label>
+          <Form.Group as={Row} className="mb-3">
+            <Form.Label column sm="2">
+              Comments
+            </Form.Label>
+            <Col sm="10">
               <Form.Control
                 type="text"
                 placeholder="Optional"
@@ -117,30 +159,35 @@ const Newtask = () => {
                 onChange={set("comments")}
               />
             </Col>
-            <Col md>
-              <Form.Label column sm="4">
-                State*
-              </Form.Label>
+          </Form.Group>
+          <Form.Group as={Row} className="mb-3">
+            <Form.Label column sm="2">
+              State*
+            </Form.Label>
+            <Col sm="10">
               <Form.Select
                 aria-label="Floating label select example"
-                placeholder="Set State"
                 onChange={set("state")}
                 value={values.state}
+                placeholder="set state"
                 required
               >
+                <option value="" disabled selected hidden>
+                  Choose state of task
+                </option>
                 <option defaultValue="open">{taskStates.OPEN}</option>
                 <option values="in progress">{taskStates.IN_PROGRESS}</option>
                 <option values="completed">{taskStates.COMPLETED}</option>
               </Form.Select>
-              {/* </FloatingLabel> */}
             </Col>
-          </Row>
+          </Form.Group>
+
           <div className="set-but">
             <button
               type="submit"
               className="btn btn-primary"
               id="but"
-              disabled={!values.task_name && !values.state}
+              disabled={!values.task_name || !values.state}
             >
               Save
             </button>

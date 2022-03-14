@@ -1,6 +1,12 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import logo from "./Assests/images/logo.png";
+/**
+ * home page to return the components of root page
+ * importing important dependencies
+ * function return the task image logo with the basic details about the application
+ */
+//the
 const Home = () => {
   return (
     <div>

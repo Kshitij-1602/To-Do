@@ -21,6 +21,7 @@
     "dotenv": "^16.0.0",
     "font-awesome": "^4.7.0",
     "install": "^0.13.0",
+    "mockdate": "^3.0.5",
     "npm": "^8.5.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.2",

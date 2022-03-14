@@ -9,15 +9,15 @@ Rails.application.routes.draw do
   get 'user-detail',to: 'users#details'
 
   get 'get-tasks', to: 'tasks#get_my_tasks'
-  post 'post-tasks',to: 'tasks#create_my_tasks'
+  post 'post-task',to: 'tasks#create_my_tasks'
 
   get 'get-onetask/:id',to: 'tasks#show_my_tasks'
-  put 'put-tasks/:id',to: 'tasks#update_my_tasks'
-
+  put 'put-task/:id',to: 'tasks#update_my_tasks'
 
   resources :users do
     resources :tasks
   end
+  
   get 'auth/:provider/callback', to: 'sessions#googleAuth'
   get 'auth/failure', to: redirect('/')
 

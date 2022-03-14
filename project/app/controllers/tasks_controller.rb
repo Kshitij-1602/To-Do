@@ -1,8 +1,8 @@
 class TasksController < ApplicationController
   before_action :set_user
   before_action :set_task, only: %i[ show edit update ]
+
   # skip_forgery_protection
-  # skip_before_action :verify_authenticity_token
 
   # GET /tasks or /tasks.json
   def index
@@ -19,9 +19,12 @@ class TasksController < ApplicationController
   
   # GET /tasks/1 or /tasks/1.json
   def show
-
     @task = @user.tasks.find(params[:id])
     respond_to do |format|
+      if is_task_due(@task) == true
+        UserMailer.with(user: @user,task: @task).notify_user.deliver_later
+      end
+     
       format.json { render json: @task, status: :created }
     end
 
@@ -67,7 +70,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.update(task_params)
-         # format.html { redirect_to user_task_path(@user.id), notice: "Task was successfully updated." }
+   
          format.json { render json: @task, status: :ok, location: @user,notice: "Task updated" }
         else
           # format.html { render :edit, status: :unprocessable_entity }
@@ -106,6 +109,17 @@ class TasksController < ApplicationController
     update
   end
   
+  def is_task_due(task)
+    @date_check = task
+    if @date_check.date_time == nil
+        return false
+    elsif @date_check.date_time < DateTime.now.localtime
+        # return true
+        return true
+    else    
+        return false
+    end
+  end
 
 
 

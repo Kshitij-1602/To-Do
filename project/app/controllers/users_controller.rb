@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  
   # skip_forgery_protection
 
-  # skip_before_action :verify_authenticity_token
   skip_before_action :validate_if_req_authenticated, only: :login
 
   def root
@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def logout
     session.clear
     reset_session()
-    redirect_to root_path
+    redirect_to '/login'
   end
   
   # GET /users or /users.json
